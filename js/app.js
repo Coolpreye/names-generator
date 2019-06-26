@@ -28,26 +28,20 @@ function loadNames(e) {
         url += `amount=${amount}`;
     }
 
-    // Ajax call
-    const xhr = new XMLHttpRequest();
+    
 
     // fetch API
     fetch(url)
-    .then(function(res) {
-        return res.json();
-    })
-    .then(function(names) {
+    .then(res => res.json() )
+    .then(names => {
         let html = '<h2>Generated Names</h2>';
         html += '<ul class="list">';
-        names.forEach(function(name) {
-            html += `<li>${name.name}</li>`;
-        })
+        names.forEach(name => html += `<li>${name.name}</li>`
+        )
         html += '<ul>'; 
 
         document.querySelector('#result').innerHTML = html;
     })
-    .catch(function(error) {
-        console.log(error);
-    });
+    .catch(error => console.log(error) );
 
 }
