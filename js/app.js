@@ -31,28 +31,23 @@ function loadNames(e) {
     // Ajax call
     const xhr = new XMLHttpRequest();
 
-    // open the connection
-    xhr.open('GET', url, true);
+    // fetch API
+    fetch(url)
+    .then(function(res) {
+        return res.json();
+    })
+    .then(function(names) {
+        let html = '<h2>Generated Names</h2>';
+        html += '<ul class="list">';
+        names.forEach(function(name) {
+            html += `<li>${name.name}</li>`;
+        })
+        html += '<ul>'; 
 
-    // execute the function
-    xhr.onload = function() {
-        if(this.status === 200) {
-            const names = JSON.parse(this.responseText);
+        document.querySelector('#result').innerHTML = html;
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 
-            // insert into the html
-            html = `<h1>Generated Names</h1>`;
-            html += `<ul class="list">`;
-            names.forEach(function(name) {
-                html += ` <li>${name.name}`;
-            });
-
-            html += `</ul>`;
-
-            document.querySelector('#result').innerHTML = html;
-
-        }
-    }
-
-    // send request
-    xhr.send();
 }
